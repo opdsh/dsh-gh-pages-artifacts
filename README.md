@@ -100,15 +100,21 @@ A value from the environment wins and is read-only. Token-shaped variable names 
 
 ### 4. Install the plugin
 
-**From GitHub.** The package builds itself on install, so pnpm asks you to allow its build script once:
+**From the latest release** (recommended; prebuilt, so nothing is built on your machine):
+
+```bash
+dsh plugin --profile web add https://github.com/opdsh/dsh-gh-pages-artifacts/releases/latest/download/dsh-gh-pages-artifacts.tgz
+```
+
+On **Desktop / Web**, open **Plugins → Add plugin** and enter the same URL. Restart running CLI profiles after installing.
+
+**From source on GitHub.** The package builds itself on install, so pnpm blocks the first attempt until you allow that build:
 
 ```bash
 dsh plugin --profile web add github:opdsh/dsh-gh-pages-artifacts
 ```
 
-If the first attempt stops at "Ignored build scripts", add `dsh-gh-pages-artifacts: true` under `allowBuilds:` in the profile's `pnpm-workspace.yaml` (as dsh prints), then run the command again. Pin a commit (`github:opdsh/dsh-gh-pages-artifacts#<sha>`) if you want to be sure later pushes don't change what you run.
-
-On **Desktop / Web**, open **Plugins → Add plugin** and enter `github:opdsh/dsh-gh-pages-artifacts`.
+dsh then prints a key like `dsh-gh-pages-artifacts@https://codeload.github.com/opdsh/dsh-gh-pages-artifacts/tar.gz/<commit>`. Add it with `: true` under `allowBuilds:` in the profile's `pnpm-workspace.yaml` (dsh prints the path), then run the command again. The key names one commit, so allow it again after updating.
 
 **From a local checkout.** Build it first (`lib/` is not committed):
 
@@ -123,8 +129,6 @@ cd dsh-gh-pages-artifacts && pnpm install && pnpm run build
 ```bash
 dsh plugin --profile web add "$PWD"
 ```
-
-On Desktop / Web, enter the checkout's absolute path in **Plugins → Add plugin**. Restart running CLI profiles after installing.
 
 ### 5. Configure it (optional)
 
@@ -193,6 +197,8 @@ Then ask the agent: *"Make a one-page summary of this repo's architecture and pu
 - **Origin isolation.** All project sites of one owner share the `https://<owner>.github.io` origin (cookies, localStorage). If you run other apps on that origin, consider a separate account or organization, or a custom domain, for artifacts.
 
 ## Development
+
+Releases are cut by pushing a tag that matches `package.json` (for example `v0.1.0`); the release workflow tests, builds, and attaches `dsh-gh-pages-artifacts.tgz` to the GitHub Release.
 
 ```bash
 pnpm install
