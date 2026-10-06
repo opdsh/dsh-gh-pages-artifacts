@@ -1,6 +1,6 @@
 {
   "name": "dsh-gh-pages-artifacts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DeepSeek Harness plugin that lets agents publish HTML pages and Markdown documents as shareable artifacts on GitHub Pages.",
   "license": "MIT",
   "author": "VibOtaku <vibotaku@vbytes.mozmail.com>",
