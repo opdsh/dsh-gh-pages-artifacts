@@ -1,10 +1,40 @@
 # dsh-gh-pages-artifacts
 
+English | [中文](README.zh.md)
+
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) plugin that lets agents publish **artifacts** (HTML pages and Markdown documents) as shareable links on **GitHub Pages**.
 
 Ask the agent for a report, dashboard, chart, or write-up "as a page". It writes the file, publishes it, and replies with a link like `https://you.github.io/dsh-artifacts/q3-report-k3x9ab/`. Later it can update the same artifact in place, so the link never changes. It can also list, read back, and delete artifacts.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/artifacts-panel-dark.png">
+  <img alt="The Artifacts panel in the dsh sidebar, listing published pages with their links" src="docs/images/artifacts-panel-light.png">
+</picture>
+
 > **Published artifacts are public.** GitHub Pages sites are reachable by anyone with the link. On GitHub Free the repository must be public too, and git history keeps old versions even after deletion. The plugin asks before publishing or deleting (except in *Full access* sessions, see [Behaviour details](#behaviour-details)), adds `noindex`, and refuses hidden files and content that looks like a credential, but you decide what gets shared.
+
+## What it looks like
+
+Each artifact is an ordinary page on GitHub Pages. The agent wrote and published this dashboard itself:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/published-page-dark.png">
+  <img alt="A sales dashboard the agent published to GitHub Pages" src="docs/images/published-page-light.png">
+</picture>
+
+Deleting from the Artifacts panel asks for confirmation in the row itself:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/artifacts-delete-dark.png">
+  <img alt="Inline confirmation before deleting an artifact" src="docs/images/artifacts-delete-light.png">
+</picture>
+
+The plugin's own page under **Plugins** holds its settings:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/settings-dark.png">
+  <img alt="The plugin settings page: GitHub token, repository strategy, commits, and safety options" src="docs/images/settings-light.png">
+</picture>
 
 ## What the agent gets
 
@@ -187,7 +217,7 @@ Then ask the agent: *"Make a one-page summary of this repo's architecture and pu
 
 ## Behaviour details
 
-- **Approval.** Publish, update, and delete ask through the dsh approval panel. The prompt leads with the exact URL and lists the source file (or inline content size), every asset as `source → published name`, removed assets, and the total size. Titles are quoted and may not contain control or bidi characters, so they can't disguise the request. With the default `unless-full-access`, only *Full access* sessions publish without a prompt; *Auto* sessions are still asked. Headless runs and SDK sessions without an approval channel fail closed unless you set `approval: off`. Subagents cannot ask for approval, so by default they only get the read-only tools; this is enforced when the tools run, not just by hiding them.
+- **Approval.** Publish, update, and delete ask through the dsh approval panel. The prompt leads with the exact URL and lists the source file (or inline content size), every asset as `source → published name`, removed assets, and the total size. Titles are quoted and may not contain control or bidi characters, so they can't disguise the request. With the default `unless-full-access`, only *Full access* sessions publish without a prompt; *Auto review* sessions are still asked. Headless runs and SDK sessions without an approval channel fail closed unless you set `approval: off`. Subagents cannot ask for approval, so by default they only get the read-only tools; this is enforced when the tools run, not just by hiding them.
 - **Workspace confinement.** `path` and `assets` must be regular files inside the session's working directory. Symlinks, directories, paths that resolve outside it, hidden files, and credential-looking files are refused. The page itself must be `.html`, `.htm`, `.md`, `.markdown`, or `.txt`. This blocks path tricks, but it cannot stop an agent from copying data into the workspace or passing it inline. The approval prompt, and you, remain the real control.
 - **Markdown** is rendered with GitHub-flavored Markdown (tables, task lists, footnotes, strikethrough, autolinks). Raw HTML inside Markdown is escaped and `javascript:` links are dropped. Publish HTML for anything interactive.
 - **HTML** is published as written. A fragment is wrapped into a complete document. The plugin inserts only the robots and CSP meta tags right after `<head>`, marked with `data-dsh-artifacts` so `artifact_read` returns the page without them. Inline `content` counts as HTML only when it is a whole document (`<!doctype html>` or `<html>`); anything else is rendered as Markdown.
