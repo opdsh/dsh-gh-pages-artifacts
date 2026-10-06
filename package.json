@@ -83,6 +83,23 @@
     "@deepseek-ai/dsh-skill": "^0.2.0-rc.2 || ^0.2.1-alpha.1",
     "@deepseek-ai/dsh-tools": "^0.2.0-rc.2 || ^0.2.1-alpha.1"
   },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-credentials": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-launch-environment": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-skill": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@deepseek-ai/cordis": "4.0.5-alpha.1",
     "@deepseek-ai/dsh-agent": "0.2.1-alpha.1",
