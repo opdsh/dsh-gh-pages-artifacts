@@ -1,0 +1,15 @@
+# Bundle layer for dsh-gh-pages-artifacts.
+#
+# The row carries no `config`, so every option uses its schema default.
+# Override it from your profile's cordis.patch.yml by id, for example:
+#
+#   - id: gh-pages-artifacts
+#     config:
+#       owner: your-github-login
+#       repo: dsh-artifacts
+#
+# A patch replaces the row's whole `config`; keys you leave out fall back to
+# their defaults.
+- insert:
+    - id: gh-pages-artifacts
+      name: dsh-gh-pages-artifacts
