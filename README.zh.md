@@ -4,6 +4,8 @@
 
 一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（dsh）插件，让 Agent（智能体）将**产物（artifact）**，即 HTML 页面和 Markdown 文档，以可分享链接的形式发布到 **GitHub Pages**。
 
+它的目标是在 dsh 中直接替代 Claude 的 Artifacts 以及 Codex 桌面版的站点（site）功能。
+
 让 Agent 把报告、仪表盘、图表或文章“做成页面”。它会写好文件并发布，然后回复一个类似 `https://you.github.io/dsh-artifacts/q3-report-k3x9ab/` 的链接。之后它可以原地更新同一个产物，链接始终不变。它还可以列出、读回和删除产物。
 
 <picture>

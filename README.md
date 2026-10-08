@@ -4,6 +4,8 @@ English | [中文](README.zh.md)
 
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) plugin that lets agents publish **artifacts** (HTML pages and Markdown documents) as shareable links on **GitHub Pages**.
 
+It aims to be a drop-in replacement, inside dsh, for Claude's Artifacts and for the site feature in Codex desktop.
+
 Ask the agent for a report, dashboard, chart, or write-up "as a page". It writes the file, publishes it, and replies with a link like `https://you.github.io/dsh-artifacts/q3-report-k3x9ab/`. Later it can update the same artifact in place, so the link never changes. It can also list, read back, and delete artifacts.
 
 <picture>
